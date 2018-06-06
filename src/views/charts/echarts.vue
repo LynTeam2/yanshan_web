@@ -37,16 +37,16 @@
             drawColumnChart() {
                 this.chartColumn = echarts.init(document.getElementById('chartColumn'));
                 this.chartColumn.setOption({
-                  title: { text: 'Column Chart' },
+                  title: { text: '考试成绩' },
                   tooltip: {},
                   xAxis: {
-                      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                      data: ["考生1", "考生2", "考生3", "考生4", "考生5", "考生6"]
                   },
                   yAxis: {},
                   series: [{
-                      name: '销量',
+                      name: '成绩',
                       type: 'bar',
-                      data: [5, 20, 36, 10, 10, 20]
+                      data: [70, 80, 75, 50, 100, 80]
                     }]
                 });
             },
@@ -54,7 +54,7 @@
                 this.chartBar = echarts.init(document.getElementById('chartBar'));
                 this.chartBar.setOption({
                     title: {
-                        text: 'Bar Chart',
+                        text: '年度考核情况',
                         subtext: '数据来自网络'
                     },
                     tooltip: {
@@ -64,7 +64,7 @@
                         }
                     },
                     legend: {
-                        data: ['2011年', '2012年']
+                        data: ['2018年', '2019年']
                     },
                     grid: {
                         left: '3%',
@@ -78,18 +78,18 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+                        data: ['单位1', '单位2', '单位3', '单位4', '单位5', '合格次数(次)']
                     },
                     series: [
                         {
-                            name: '2011年',
+                            name: '2018年',
                             type: 'bar',
-                            data: [18203, 23489, 29034, 104970, 131744, 630230]
+                            data: [3, 6, 2, 5, 3, 19]
                         },
                         {
-                            name: '2012年',
+                            name: '2019年',
                             type: 'bar',
-                            data: [19325, 23438, 31000, 121594, 134141, 681807]
+                            data: [4, 6, 10, 7, 9, 36]
                         }
                     ]
                 });
@@ -98,13 +98,13 @@
                 this.chartLine = echarts.init(document.getElementById('chartLine'));
                 this.chartLine.setOption({
                     title: {
-                        text: 'Line Chart'
+                        text: '单位合格优秀率'
                     },
                     tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data: ['邮件营销', '联盟广告', '搜索引擎']
+                        data: ['合格率', '优秀率']
                     },
                     grid: {
                         left: '3%',
@@ -115,29 +115,23 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                        data: ['一月份', '二月份', '三月份', '四月份', '五月份', '六月份', '七月份', '八月份', '九月份', '十月份', '十一月份', '十二月份']
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            name: '邮件营销',
+                            name: '合格率',
                             type: 'line',
-                            stack: '总量',
-                            data: [120, 132, 101, 134, 90, 230, 210]
+                            stack: '总量1',
+                            data: [75, 70, 85, 85, 90, 85, 65, 50, 100, 70, 80, 90]
                         },
                         {
-                            name: '联盟广告',
+                            name: '优秀率',
                             type: 'line',
-                            stack: '总量',
-                            data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                            name: '搜索引擎',
-                            type: 'line',
-                            stack: '总量',
-                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                            stack: '总量2',
+                            data: [40, 35, 20, 50, 60, 20, 15, 20, 60, 30, 10, 0]
                         }
                     ]
                 });
@@ -146,8 +140,8 @@
                 this.chartPie = echarts.init(document.getElementById('chartPie'));
                 this.chartPie.setOption({
                     title: {
-                        text: 'Pie Chart',
-                        subtext: '纯属虚构',
+                        text: '错题分布图',
+                        subtext: '安监类型',
                         x: 'center'
                     },
                     tooltip: {
@@ -157,20 +151,22 @@
                     legend: {
                         orient: 'vertical',
                         left: 'left',
-                        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                        data: ['危险化学品', '建筑施工', '人员密集场所', '交通运输', '工业企业', '消防', '特种设备']
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '错题类型',
                             type: 'pie',
                             radius: '55%',
                             center: ['50%', '60%'],
                             data: [
-                                { value: 335, name: '直接访问' },
-                                { value: 310, name: '邮件营销' },
-                                { value: 234, name: '联盟广告' },
-                                { value: 135, name: '视频广告' },
-                                { value: 1548, name: '搜索引擎' }
+                                { value: 335, name: '危险化学品' },
+                                { value: 310, name: '建筑施工' },
+                                { value: 234, name: '人员密集场所' },
+                                { value: 135, name: '交通运输' },
+                                { value: 1548, name: '工业企业' },
+                                { value: 123, name: '消防' },
+                                { value: 743, name: '特种设备' }
                             ],
                             itemStyle: {
                                 emphasis: {

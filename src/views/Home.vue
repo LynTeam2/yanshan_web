@@ -75,7 +75,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'VUEADMIN',
+				sysName:'安监管理后台',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',
@@ -138,7 +138,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss" type="text/scss">
 	@import '~scss_vars';
 	
 	.container {

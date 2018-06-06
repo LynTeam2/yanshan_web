@@ -54,14 +54,14 @@
             requestLogin(loginParams).then(data => {
               this.logining = false;
               //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
+              let { msg, code, results } = data;
+              if (code != 1) {
                 this.$message({
                   message: msg,
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('user', JSON.stringify(results.user));
                 this.$router.push({ path: '/table' });
               }
             });
