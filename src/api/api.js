@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let base = 'http://39.104.118.75';
+let base = 'http://39.105.27.225';
 //let base = 'localhost:8082';
 
 // const service = axios.create({

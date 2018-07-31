@@ -56,7 +56,7 @@
                 <el-form-item label="新闻缩略图">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.104.118.75/upload"
+                            action="http://39.105.27.225/upload"
                             list-type="picture"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
@@ -100,7 +100,7 @@
                 <el-form-item label="新闻缩略图">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.104.118.75/upload"
+                            action="http://39.105.27.225/upload"
                             list-type="picture"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
