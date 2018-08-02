@@ -411,7 +411,6 @@
 				this.editFormVisible = true;
 				this.editForm = Object.assign({}, row);
                 this.fileList2 = [];
-                debugger
 				var file = {name: this.editForm.iconName, url: this.editForm.icon};
 				this.fileList2.push(file);
 
@@ -480,7 +479,6 @@
 							this.editLoading = true;
 							//NProgress.start();
 							let para = Object.assign({}, this.editForm);
-							debugger
 							if (this.fileList2.length > 0) {
                                 para.iconName = this.fileList2[0].name;
                                 para.icon = this.fileList2[0].url;

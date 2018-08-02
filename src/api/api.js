@@ -142,4 +142,17 @@ export const uploadFile = params => {return axios.post(`${base}/upload`, { param
 /**
  * upgradeApi
  */
-export const sevenZip = params => {return axios.put(`${base}/api/sevenZip`, { params: params }); }
+export const sevenZip = params => {return axios.put(`${base}/api/sevenZip`, { params: params }); };
+
+/**
+ * unitApi
+ */
+export const getUnitListPage = params => {return axios.get(`${base}/web/manage/unit/list`, { params: params });};
+
+export const removeUnit = params => { return axios.delete(`${base}/web/manage/unit/delete`, { params: params }); };
+
+export const batchRemoveUnit = params => { return axios.delete(`${base}/web/manage/unit/delete`, { params: params }); };
+
+export const editUnit = params => { return axios.put(`${base}/web/manage/unit/update`, params ); };
+
+export const addUnit = params => { return axios.post(`${base}/web/manage/unit/add`, params ); };

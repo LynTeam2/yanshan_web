@@ -210,6 +210,7 @@
                     newsTime: '',
                     content: '',
                 },
+                fileList:[],
                 fileList2: [],
                 editorOption: {
 //                    modules: {
