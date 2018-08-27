@@ -287,9 +287,6 @@
 
                 });
             },
-            filterMethod: function(query, item) {
-                return item.label.indexOf(query) > -1;
-            },
         },
         mounted() {
             this.getUnits();

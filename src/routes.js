@@ -18,6 +18,7 @@ import Unit from '@/views/user/Unit.vue'
 import User from '@/views/user/User.vue'
 import Banner from '@/views/app/Banner.vue'
 import Law from '@/views/app/Law.vue'
+import Review from '@/views/review/Review.vue'
 
 let routes = [
     {
@@ -86,6 +87,15 @@ let routes = [
         children: [
             { path: '/unit', component: Unit, name: '单位管理' },
             { path: '/user', component: User, name: '用户管理' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '审核管理',
+        iconCls: 'fa fa-bar-chart',
+        children: [
+            { path: '/review', component: Review, name: '审核管理' }
         ]
     },
     {

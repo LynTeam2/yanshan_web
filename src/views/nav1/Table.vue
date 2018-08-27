@@ -7,7 +7,7 @@
 					<el-input v-model="filters.name" placeholder="课程名称"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" v-on:click="getUsers">查询</el-button>
+					<el-button type="primary" v-on:click="getCourses">查询</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" @click="handleAdd">新增</el-button>
@@ -260,7 +260,7 @@
 <script>
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getQuestionList, sevenZip } from '../../api/api';
+	import { getCourseListPage, removeCourse, batchRemoveCourse, editCourse, addCourse, getQuestionList, sevenZip } from '../../api/api';
 
 	export default {
 		data() {
@@ -368,17 +368,17 @@
 			},
 			handleCurrentChange(val) {
 				this.page = val;
-				this.getUsers();
+				this.getCourses();
 			},
 			//获取用户列表
-			getUsers() {
+			getCourses() {
 				let para = {
 					page: this.page - 1,
 					query: this.filters.name
 				};
 				this.listLoading = true;
 				//NProgress.start();
-				getUserListPage(para).then((res) => {
+				getCourseListPage(para).then((res) => {
 					this.total = res.data.results.courses.totalElements;
 					this.courses = res.data.results.courses.content;
 					this.listLoading = false;
@@ -393,14 +393,14 @@
 					this.listLoading = true;
 					//NProgress.start();
 					let para = { id: row.id };
-					removeUser(para).then((res) => {
+					removeCourse(para).then((res) => {
 						this.listLoading = false;
 						//NProgress.done();
 						this.$message({
 							message: '删除成功',
 							type: 'success'
 						});
-						this.getUsers();
+						this.getCourses();
 					});
 				}).catch(() => {
 
@@ -517,7 +517,7 @@
                                 }
                             });
                             para.mcList = mcs;
-							editUser(para).then((res) => {
+							editCourse(para).then((res) => {
 								this.editLoading = false;
 								//NProgress.done();
 								this.$message({
@@ -526,7 +526,7 @@
 								});
 								this.$refs['editForm'].resetFields();
 								this.editFormVisible = false;
-								this.getUsers();
+								this.getCourses();
 							});
 						});
 					}
@@ -577,7 +577,7 @@
                                 }
                             });
                             para.mcList = mcs;
-							addUser(para).then((res) => {
+							addCourse(para).then((res) => {
 								this.addLoading = false;
 								//NProgress.done();
 								this.$message({
@@ -586,7 +586,7 @@
 								});
 								this.$refs['addForm'].resetFields();
 								this.addFormVisible = false;
-								this.getUsers();
+								this.getCourses();
 							});
 						});
 					}
@@ -604,14 +604,14 @@
 					this.listLoading = true;
 					//NProgress.start();
 					let para = { id: ids };
-					batchRemoveUser(para).then((res) => {
+					batchRemoveCourse(para).then((res) => {
 						this.listLoading = false;
 						//NProgress.done();
 						this.$message({
 							message: '删除成功',
 							type: 'success'
 						});
-						this.getUsers();
+						this.getCourses();
 					});
 				}).catch(() => {
 
@@ -724,7 +724,7 @@
             },
 		},
 		mounted() {
-			this.getUsers();
+			this.getCourses();
 		}
 	}
 

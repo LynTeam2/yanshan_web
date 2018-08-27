@@ -51,15 +51,15 @@ export const requestLogin = params => { return axios.post(`${base}/login`, param
 
 //export const getUserList = params => { return axios.get(`${base}/web/manage/course/list`, { params: params }); };
 
-export const getUserListPage = params => { return axios.get(`${base}/web/manage/course/list`, { params: params }); };
+export const getCourseListPage = params => { return axios.get(`${base}/web/manage/course/list`, { params: params }); };
 
-export const removeUser = params => { return axios.delete(`${base}/web/manage/course/delete`, { params: params }); };
+export const removeCourse = params => { return axios.delete(`${base}/web/manage/course/delete`, { params: params }); };
 
-export const batchRemoveUser = params => { return axios.delete(`${base}/web/manage/course/delete`, { params: params }); };
+export const batchRemoveCourse = params => { return axios.delete(`${base}/web/manage/course/delete`, { params: params }); };
 
-export const editUser = params => { return axios.put(`${base}/web/manage/course/update`, params ); };
+export const editCourse = params => { return axios.put(`${base}/web/manage/course/update`, params ); };
 
-export const addUser = params => { return axios.post(`${base}/web/manage/course/add`, params ); };
+export const addCourse = params => { return axios.post(`${base}/web/manage/course/add`, params ); };
 
 export const getCourseList = params => { return axios.get(`${base}/web/manage/course/all`, { params: params }); };
 
@@ -156,3 +156,30 @@ export const batchRemoveUnit = params => { return axios.delete(`${base}/web/mana
 export const editUnit = params => { return axios.put(`${base}/web/manage/unit/update`, params ); };
 
 export const addUnit = params => { return axios.post(`${base}/web/manage/unit/add`, params ); };
+
+export const getUnitList = params => {return axios.get(`${base}/web/manage/unit/all`, { params: params });};
+
+/**
+ * userApi
+ */
+export const getUserListPage = params => {return axios.get(`${base}/web/manage/user/list`, { params: params });};
+
+export const removeUser = params => { return axios.delete(`${base}/web/manage/user/delete`, { params: params }); };
+
+export const batchRemoveUser = params => { return axios.delete(`${base}/web/manage/user/delete`, { params: params }); };
+
+export const editUser = params => { return axios.put(`${base}/web/manage/user/update`, params ); };
+
+export const addUser = params => { return axios.post(`${base}/web/manage/user/add`, params ); };
+
+/**
+ * roleApi
+ */
+export const getRoleList = params => {return axios.get(`${base}/web/manage/role/list`, { params: params });};
+
+/**
+ * reviewApi
+ */
+export const getReviewListPage = params => {return axios.get(`${base}/web/manage/review/list`, { params: params });};
+export const commitReview = params => { return axios.put(`${base}/web/manage/review/update`, params ); };
+
