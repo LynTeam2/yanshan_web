@@ -30,6 +30,8 @@
 			</el-table-column>
 			<el-table-column prop="courseType" label="课程类别" width="100" :formatter="formatType" sortable>
 			</el-table-column>
+			<el-table-column prop="role" label="推送用户" width="100" :formatter="formatRoleType" sortable>
+			</el-table-column>
 			<el-table-column prop="homePage" label="首页显示" width="120" sortable>
 			</el-table-column>
 			<el-table-column prop="createTime" label="创建时间" min-width="180" sortable>
@@ -60,6 +62,16 @@
 						<el-radio class="radio" :label="2">视频</el-radio>
 						<el-radio class="radio" :label="1">阅读</el-radio>
 					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="推送对象">
+					<el-select v-model="editForm.role" clearable placeholder="请选择">
+						<el-option
+								v-for="item in roles"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+						</el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="安监类别">
 					<el-select v-model="editForm.ajType" clearable placeholder="请选择">
@@ -163,6 +175,16 @@
 						<el-radio class="radio" :label="2">视频</el-radio>
 						<el-radio class="radio" :label="1">阅读</el-radio>
 					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="推送对象">
+					<el-select v-model="addForm.role" clearable placeholder="请选择">
+						<el-option
+								v-for="item in roles"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+						</el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="安监类别">
 					<el-select v-model="addForm.ajType" clearable placeholder="请选择">
@@ -296,6 +318,7 @@
                     tfList: [],
                     scList: [],
                     mcList: [],
+					role: '',
 				},
 
 				addFormVisible: false,//新增界面是否显示
@@ -319,6 +342,7 @@
 					tfList: [],
 					scList: [],
 					mcList: [],
+					role: '',
 				},
                 ajType: [
                     {
@@ -358,14 +382,26 @@
 				tfAll: [],
 				scAll: [],
 				mcAll: [],
+				roles: [
+                    {
+                        value: 'app1',
+                        label: '企业用户'
+                    },
+                    {
+                        value: 'app2',
+                        label: '安委会部门负责人'
+                    },
+				]
 			}
 		},
 		methods: {
-
 			//性别显示转换
 			formatType: function (row, column) {
 				return row.courseType == 1 ? '阅读' : row.courseType == 2 ? '视频' : '未知';
 			},
+            formatRoleType: function (row, column) {
+                return row.role == 'app1' ? '企业用户' : row.role == 'app2' ? '安委会部门负责人' : '未知';
+            },
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getCourses();
@@ -464,6 +500,7 @@
                     tfList: [],
                     scList: [],
                     mcList: [],
+					role: '',
 				};
                 this.fileList2 = [];
                 this.fileList3 = [];

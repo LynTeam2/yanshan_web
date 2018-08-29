@@ -198,7 +198,7 @@
         },
         methods: {
             formatType: function (row, column) {
-                return row.role == 1 ? '系统管理员' : row.role == 2 ? '管理员' : row.role == 3 ? '企业用户' : row.role == 4 ? '安委会部门负责人' : '未知';
+                return row.role == 1 ? '超级管理员' : row.role == 2 ? '管理员' : row.role == 3 ? '企业用户' : row.role == 4 ? '安委会部门负责人' : '未知';
             },
             handleCurrentChange(val) {
                 this.page = val;

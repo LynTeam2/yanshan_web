@@ -6,7 +6,7 @@
                 <el-form-item>
                     <el-select v-model="filters.reviewResult" placeholder="请选择">
                         <el-option
-                                v-for="item in options"
+                                v-for="item in filters.options"
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
@@ -41,8 +41,8 @@
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button size="small" @click="allow(scope.$index, scope.row)">审核通过</el-button>
-                    <el-button type="danger" size="small" @click="refuse(scope.$index, scope.row)">审核不通过</el-button>
+                    <el-button size="small" @click="allow(scope.$index, scope.row)" v-show="scope.row.reviewResult == 0">审核通过</el-button>
+                    <el-button type="danger" size="small" @click="refuse(scope.$index, scope.row)" v-show="scope.row.reviewResult == 0">审核不通过</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -99,7 +99,7 @@
             getReviews() {
                 let para = {
                     page: this.page - 1,
-                    reviewResult: this.filters.reviewResult
+                    reviewResult: this.filters.reviewResult == '' ? '0' : this.filters.reviewResult,
                 };
                 this.listLoading = true;
                 //NProgress.start();
@@ -125,11 +125,19 @@
                     para.reviewResult = 1;
                     commitReview(para).then((res) => {
                         this.listLoading = false;
+                        if (res.data.code == 0) {
+                            this.$message({
+                                message: res.data.msg,
+                                type: 'warning'
+                            });
+                        } else {
+                            this.$message({
+                                message: '审核成功',
+                                type: 'success'
+                            });
+                        }
                         //NProgress.done();
-                        this.$message({
-                            message: '审核成功',
-                            type: 'success'
-                        });
+
                         this.getReviews();
                     });
                 }).catch(() => {
@@ -138,7 +146,7 @@
             },
 
             refuse: function (index, row) {
-                this.$confirm('确认审核通过吗?', '提示', {
+                this.$confirm('确认审核不通过吗?', '提示', {
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
@@ -147,23 +155,30 @@
                     para.reviewResult = 2;
                     commitReview(para).then((res) => {
                         this.listLoading = false;
+                        if (res.data.code == 0) {
+                            this.$message({
+                                message: res.data.msg,
+                                type: 'warning'
+                            });
+                        } else {
+                            this.$message({
+                                message: '审核成功',
+                                type: 'success'
+                            });
+                        }
                         //NProgress.done();
-                        this.$message({
-                            message: '审核成功',
-                            type: 'success'
-                        });
+
                         this.getReviews();
                     });
                 }).catch(() => {
 
                 });
-            }
+            },
         },
         mounted() {
             this.getReviews();
         }
     }
-
 </script>
 
 <style scoped>

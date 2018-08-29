@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 let base = 'http://39.105.27.225';
 //let base = 'localhost:8082';
 
