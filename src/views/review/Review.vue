@@ -29,6 +29,8 @@
             </el-table-column>
             <el-table-column prop="operate" label="操作类型" width="100" :formatter="formatOperateType" sortable>
             </el-table-column>
+            <el-table-column prop="targetName" label="操作对象" min-width="180" sortable>
+            </el-table-column>
             <el-table-column prop="operatorName" label="操作人" width="100" sortable>
             </el-table-column>
             <el-table-column prop="operateTime" label="操作时间" min-width="180" sortable>
