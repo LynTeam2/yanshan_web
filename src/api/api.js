@@ -116,6 +116,8 @@ export const editExam = params => { return axios.put(`${base}/web/manage/exam/up
 
 export const addExam = params => { return axios.post(`${base}/web/manage/exam/add`, params ); };
 
+export const getExamList = params => {return axios.get(`${base}/web/manage/exam/all`, { params: params });};
+
 /**
  * BannerApi
  */
@@ -174,6 +176,10 @@ export const editUser = params => { return axios.put(`${base}/web/manage/user/up
 
 export const addUser = params => { return axios.post(`${base}/web/manage/user/add`, params ); };
 
+export const modifyPassword = params => {return axios.put(`${base}/web/manage/user/password`, params )};
+
+export const resetPassword = params => {return axios.get(`${base}/web/manage/user/reset`, { params: params });};
+
 /**
  * roleApi
  */
@@ -183,5 +189,16 @@ export const getRoleList = params => {return axios.get(`${base}/web/manage/role/
  * reviewApi
  */
 export const getReviewListPage = params => {return axios.get(`${base}/web/manage/review/list`, { params: params });};
+
 export const commitReview = params => { return axios.put(`${base}/web/manage/review/update`, params ); };
 
+/**
+ * analysisApi
+ */
+export const getSuperiority = params => {return axios.get(`${base}/web/manage/analysis/superiority`, {params: params});};
+
+export const getScore = params => {return axios.get(`${base}/web/manage/analysis/score`, {params: params});};
+
+export const getRate = params => {return axios.get(`${base}/web/manage/analysis/rate`, {params: params});};
+
+export const getRank = params => {return axios.get(`${base}/web/manage/analysis/rank`, {params: params});};

@@ -13,8 +13,8 @@
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>我的消息</el-dropdown-item>
-						<el-dropdown-item>设置</el-dropdown-item>
+						<el-dropdown-item @click.native="handlePassword">修改密码</el-dropdown-item>
+						<!--<el-dropdown-item>设置</el-dropdown-item>-->
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
@@ -68,12 +68,40 @@
 				</div>
 			</section>
 		</el-col>
+		<el-dialog title="修改密码" :visible.sync="passwordVisible" :close-on-click-modal="false" width="60%">
+			<el-form :model="passwordForm" label-width="120px" :rules="passwordFormRules" ref="passwordForm">
+				<el-form-item label="旧密码" prop="userName">
+					<el-input v-model="passwordForm.oldPassword" auto-complete="off" type="password"></el-input>
+				</el-form-item>
+				<el-form-item label="新密码">
+					<el-input v-model="passwordForm.newPassword" auto-complete="off" type="password"></el-input>
+				</el-form-item>
+				<el-form-item label="确认密码">
+					<el-input v-model="passwordForm.surePassword" auto-complete="off" type="password"></el-input>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click.native="passwordFormVisible = false">取消</el-button>
+				<el-button type="primary" @click.native="passwordSubmit" :loading="passwordLoading">提交</el-button>
+			</div>
+		</el-dialog>
 	</el-row>
 </template>
 
 <script>
+    import { modifyPassword } from '../api/api';
+
 	export default {
 		data() {
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.passwordForm.newPassword) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
 			return {
 				sysName:'安监管理后台',
 				collapsed:false,
@@ -88,6 +116,25 @@
 					type: [],
 					resource: '',
 					desc: ''
+				},
+				passwordForm: {
+					oldPassword: '',
+					newPassword: '',
+					surePassword: '',
+				},
+                passwordVisible: false,
+				passwordLoading: false,
+
+                passwordRules: {
+				    oldPassword: [
+                        { required: true, message: '请输入旧密码', trigger: 'blur'}
+					],
+					newPassword: [
+                        { required: true, message: '请输入新密码，长度大于等于6位', trigger: 'blur'}
+					],
+					surePassword: [
+                        { validator: validatePass, trigger: 'blur'}
+					]
 				}
 			}
 		},
@@ -121,14 +168,52 @@
 			},
 			showMenu(i,status){
 				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
-			}
+			},
+			handlePassword: function () {
+				this.passwordVisible = true;
+				this.passwordForm = {
+                    oldPassword: '',
+                    newPassword: '',
+                    surePassword: '',
+				}
+            },
+			passwordSubmit: function () {
+                this.$refs.passwordForm.validate((valid) => {
+                    if (valid) {
+                        let para = this.passwordForm;
+                        if (para.newPassword.length >= 6 && para.newPassword == para.surePassword) {
+                            this.passwordLoading = true;
+                            modifyPassword(para).then((res) => {
+                                if (res.code == 0) {
+                                    this.$message({
+                                        message: res.msg,
+                                        type: 'warning'
+                                    });
+                                } else {
+                                    this.$message({
+                                        message: '提交成功',
+                                        type: 'success'
+                                    });
+                                    this.passwordVisible = false;
+                                }
+                                this.passwordLoading = false;
+                            })
+                        } else {
+                            this.$message({
+                                message: '提交失败,输入密码不规范',
+                                type: 'warning'
+                            });
+                        }
+                    }
+                });
+            }
 		},
 		mounted() {
 			var user = sessionStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
+				this.sysUserName = user.userName || '';
+				this.sysUserAvatar = user.icon || 'http://39.105.27.225/resource/uploadFile/1536840378789.jpg';
 			}
 
 		}

@@ -34,6 +34,10 @@
             </el-table-column>
             <el-table-column prop="createTime" label="创建时间" min-width="180" sortable>
             </el-table-column>
+            <el-table-column prop="startDate" label="开放时间" width="100" sortable>
+            </el-table-column>
+            <el-table-column prop="endDate" label="结束时间" width="100" sortable>
+            </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
                     <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -69,6 +73,22 @@
                 <!--</el-form-item>-->
                 <el-form-item label="考试时长">
                     <el-slider v-model="editForm.examDuration" show-input></el-slider>
+                </el-form-item>
+                <el-form-item label="开放时间">
+                    <el-date-picker
+                            v-model="editForm.startDate"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间">
+                    <el-date-picker
+                            v-model="editForm.endDate"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                    </el-date-picker>
                 </el-form-item>
                 <el-form-item label="考试范围">
                     <el-transfer
@@ -107,6 +127,22 @@
                 <!--</el-form-item>-->
                 <el-form-item label="考试时长">
                     <el-slider v-model="addForm.examDuration" show-input></el-slider>
+                </el-form-item>
+                <el-form-item label="开放时间">
+                    <el-date-picker
+                            v-model="addForm.startDate"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间">
+                    <el-date-picker
+                            v-model="addForm.endDate"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                    </el-date-picker>
                 </el-form-item>
                 <el-form-item label="考试范围">
                     <el-transfer
@@ -159,6 +195,8 @@
                     introduction: '',
 //                    standard: 0,
                     examDuration: 30,
+                    startDate: '',
+                    endDate: '',
                     courseList: [],
                 },
 
@@ -176,6 +214,8 @@
                     introduction: '',
 //                    standard: 0,
                     examDuration: 30,
+                    startDate: '',
+                    endDate: '',
                     courseList: [],
                 },
                 courseData: [],
@@ -245,6 +285,8 @@
                     introduction: '',
 //                    standard: 0,
                     examDuration: 30,
+                    startDate: '',
+                    endDate: '',
                     courseList: [],
                 };
                 this.getCourses();

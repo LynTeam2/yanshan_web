@@ -1,16 +1,68 @@
 <template>
     <section class="chart-container">
         <el-row>
-            <el-col :span="12">
+            <el-col :span="24">
+                <el-select v-model="unit1" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in units"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="exam1" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in exams"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-button type="primary" icon="el-icon-search" @click="drawColumnChart">搜索</el-button>
                 <div id="chartColumn" style="width:100%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="24">
+                <el-select v-model="exam2" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in exams"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-button type="primary" icon="el-icon-search" @click="drawBarChart">搜索</el-button>
                 <div id="chartBar" style="width:100%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="24">
+                <el-select v-model="unit2" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in units"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-button type="primary" icon="el-icon-search" @click="drawLineChart">搜索</el-button>
                 <div id="chartLine" style="width:100%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="24">
+                <el-select v-model="unit3" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in units"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="exam3" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in exams"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-button type="primary" icon="el-icon-search" @click="drawPieChart">搜索</el-button>
                 <div id="chartPie" style="width:100%; height:400px;"></div>
             </el-col>
             <el-col :span="24">
@@ -22,6 +74,7 @@
 
 <script>
     import echarts from 'echarts'
+    import {getSuperiority, getScore, getRate, getRank, getUnitList, getExamList} from '../../api/api'
 
     export default {
         data() {
@@ -29,155 +82,181 @@
                 chartColumn: null,
                 chartBar: null,
                 chartLine: null,
-                chartPie: null
+                chartPie: null,
+                units:[],
+                exams:[],
+                unit1: null,
+                unit2: null,
+                unit3: null,
+                exam1: null,
+                exam2: null,
+                exam3: null,
             }
         },
 
         methods: {
             drawColumnChart() {
-                this.chartColumn = echarts.init(document.getElementById('chartColumn'));
-                this.chartColumn.setOption({
-                  title: { text: '考试成绩' },
-                  tooltip: {},
-                  xAxis: {
-                      data: ["考生1", "考生2", "考生3", "考生4", "考生5", "考生6"]
-                  },
-                  yAxis: {},
-                  series: [{
-                      name: '成绩',
-                      type: 'bar',
-                      data: [70, 80, 75, 50, 100, 80]
-                    }]
+                var params = {
+                    'examId' : this.exam1,
+                    'unitId' : this.unit1
+                }
+
+                getScore(params).then((res) => {
+                    this.chartColumn = echarts.init(document.getElementById('chartColumn'));
+                    this.chartColumn.setOption({
+                        title: { text: '考试成绩' },
+                        tooltip: {},
+                        xAxis: {
+                            data: res.data.results.users,
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '成绩',
+                            type: 'bar',
+                            data: res.data.results.scores,
+                        }]
+                    });
                 });
             },
             drawBarChart() {
-                this.chartBar = echarts.init(document.getElementById('chartBar'));
-                this.chartBar.setOption({
-                    title: {
-                        text: '年度考核情况',
-                        subtext: '数据来自网络'
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
-                        }
-                    },
-                    legend: {
-                        data: ['2018年', '2019年']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'value',
-                        boundaryGap: [0, 0.01]
-                    },
-                    yAxis: {
-                        type: 'category',
-                        data: ['单位1', '单位2', '单位3', '单位4', '单位5', '合格次数(次)']
-                    },
-                    series: [
-                        {
-                            name: '2018年',
-                            type: 'bar',
-                            data: [3, 6, 2, 5, 3, 19]
+                var params = {
+                    'examId' : this.exam2,
+                }
+                getRank(params).then((res) => {
+                    this.chartBar = echarts.init(document.getElementById('chartBar'));
+                    this.chartBar.setOption({
+                        title: {
+                            text: '单位考试排名',
+                            subtext: '数据来自网络'
                         },
-                        {
-                            name: '2019年',
-                            type: 'bar',
-                            data: [4, 6, 10, 7, 9, 36]
-                        }
-                    ]
-                });
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['合格率', '优秀率']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            boundaryGap: [0, 0.01]
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: res.data.results.units,
+                        },
+                        series: [
+                            {
+                                name: '合格率',
+                                type: 'bar',
+                                data: res.data.results.pass,
+                            },
+                            {
+                                name: '优秀率',
+                                type: 'bar',
+                                data: res.data.results.good,
+                            }
+                        ]
+                    });
+                })
             },
             drawLineChart() {
-                this.chartLine = echarts.init(document.getElementById('chartLine'));
-                this.chartLine.setOption({
-                    title: {
-                        text: '单位合格优秀率'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['合格率', '优秀率']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['一月份', '二月份', '三月份', '四月份', '五月份', '六月份', '七月份', '八月份', '九月份', '十月份', '十一月份', '十二月份']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [
-                        {
-                            name: '合格率',
-                            type: 'line',
-                            stack: '总量1',
-                            data: [75, 70, 85, 85, 90, 85, 65, 50, 100, 70, 80, 90]
+                var params = {
+                    'unitId' : this.unit2,
+                }
+
+                getRate(params).then((res) => {
+                    this.chartLine = echarts.init(document.getElementById('chartLine'));
+                    this.chartLine.setOption({
+                        title: {
+                            text: '单位合格优秀率'
                         },
-                        {
-                            name: '优秀率',
-                            type: 'line',
-                            stack: '总量2',
-                            data: [40, 35, 20, 50, 60, 20, 15, 20, 60, 30, 10, 0]
-                        }
-                    ]
-                });
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['合格率', '优秀率']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: res.data.results.exams,
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                name: '合格率',
+                                type: 'line',
+                                stack: '总量1',
+                                data: res.data.results.pass,
+                            },
+                            {
+                                name: '优秀率',
+                                type: 'line',
+                                stack: '总量2',
+                                data: res.data.results.good,
+                            }
+                        ]
+                    });
+                })
             },
             drawPieChart() {
-                this.chartPie = echarts.init(document.getElementById('chartPie'));
-                this.chartPie.setOption({
-                    title: {
-                        text: '错题分布图',
-                        subtext: '安监类型',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'left',
-                        data: ['危险化学品', '建筑施工', '人员密集场所', '交通运输', '工业企业', '消防', '特种设备']
-                    },
-                    series: [
-                        {
-                            name: '错题类型',
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['50%', '60%'],
-                            data: [
-                                { value: 335, name: '危险化学品' },
-                                { value: 310, name: '建筑施工' },
-                                { value: 234, name: '人员密集场所' },
-                                { value: 135, name: '交通运输' },
-                                { value: 1548, name: '工业企业' },
-                                { value: 123, name: '消防' },
-                                { value: 743, name: '特种设备' }
-                            ],
-                            itemStyle: {
-                                emphasis: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                var params = {
+                    "examId": this.exam3,
+                    "unitId": this.unit3,
+                };
+
+                getSuperiority(params).then((res) => {
+                    this.chartPie = echarts.init(document.getElementById('chartPie'));
+                    this.chartPie.setOption({
+                        title: {
+                            text: '错题分布图',
+                            subtext: '安监类型',
+                            x: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data: ['危险化学品', '建筑施工', '人员密集场所', '交通运输', '工业企业', '消防', '特种设备']
+                        },
+                        series: [
+                            {
+                                name: '错题类型',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: res.data.results.superiority,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
                                 }
                             }
-                        }
-                    ]
+                        ]
+                    });
                 });
+
             },
             drawCharts() {
                 this.drawColumnChart()
@@ -185,10 +264,42 @@
                 this.drawLineChart()
                 this.drawPieChart()
             },
+
+            getUnits() {
+                let para = {};
+                let result = [];
+                getUnitList(para).then((res) => {
+                    let units = res.data.results.units;
+                    units.forEach((unit, index) => {
+                        result.push({
+                            label: unit.unitName,
+                            value: unit.id + "",
+                        })
+                    });
+                    this.units = result;
+                })
+            },
+
+            getExams() {
+                let para = {};
+                let result = [];
+                getExamList(para).then((res) => {
+                    let exams = res.data.results.exams;
+                    exams.forEach((exam, index) => {
+                        result.push({
+                            label: exam.examName,
+                            value: exam.id + "",
+                        })
+                    });
+                    this.exams = result;
+                })
+            }
         },
 
         mounted: function () {
-            this.drawCharts()
+            this.drawCharts();
+            this.getUnits();
+            this.getExams();
         },
         updated: function () {
             this.drawCharts()

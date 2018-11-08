@@ -35,6 +35,7 @@
                 <template slot-scope="scope">
                     <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                     <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+                    <el-button type="warning" size="small" @click="handleReset(scope.$index, scope.row)">重置密码</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -129,7 +130,7 @@
 <script>
     import util from '../../common/js/util'
     //import NProgress from 'nprogress'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getUnitList} from '../../api/api';
+    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getUnitList, resetPassword} from '../../api/api';
 
     export default {
         data() {
@@ -256,6 +257,26 @@
                     role: '',
                     unitId: '',
                 };
+            },
+            //重置密码
+            handleReset: function (index, row) {
+                this.$confirm('确认重置密码吗?', '提示', {
+                    type: 'warning'
+                }).then(() => {
+                    this.listLoading = true;
+                    let para = { userName: row.userName };
+
+                    resetPassword(para).then((res) => {
+                        this.listLoading = false;
+                        //NProgress.done();
+                        this.$message({
+                            message: '重置成功',
+                            type: 'success'
+                        });
+                    });
+                }).catch(() => {
+
+                });
             },
             //编辑
             editSubmit: function () {
