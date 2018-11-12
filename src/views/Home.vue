@@ -213,7 +213,7 @@
 			if (user) {
 				user = JSON.parse(user);
 				this.sysUserName = user.userName || '';
-				this.sysUserAvatar = user.icon || 'http://39.105.27.225/resource/uploadFile/1536840378789.jpg';
+				this.sysUserAvatar = user.icon || 'http://api.anjian.hanyuhuake.com/resource/uploadFile/1536840378789.jpg';
 			}
 
 		}

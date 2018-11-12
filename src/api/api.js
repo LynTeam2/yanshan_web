@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-let base = 'http://39.105.27.225';
+let base = 'http://api.anjian.hanyuhuake.com';
 //let base = 'localhost:8082';
 
 // const service = axios.create({

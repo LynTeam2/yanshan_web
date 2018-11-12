@@ -12,7 +12,7 @@
                 class="upload-demo"
                 drag
                 list-type="picture"
-                action="http://39.105.27.225/upload"
+                action="http://api.anjian.hanyuhuake.com/upload"
                 :limit="5"
                 :on-exceed="handleExceed"
                 :file-list="fileList"

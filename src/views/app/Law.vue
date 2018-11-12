@@ -63,7 +63,7 @@
                 <el-form-item label="法律缩略图">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.105.27.225/upload"
+                            action="http://api.anjian.hanyuhuake.com/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
@@ -79,7 +79,7 @@
                 <el-form-item label="法律文件">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.105.27.225/upload"
+                            action="http://api.anjian.hanyuhuake.com/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
@@ -118,7 +118,7 @@
                 <el-form-item label="法律缩略图">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.105.27.225/upload"
+                            action="http://api.anjian.hanyuhuake.com/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
@@ -134,7 +134,7 @@
                 <el-form-item label="法律文件">
                     <el-upload
                             class="upload-demo"
-                            action="http://39.105.27.225/upload"
+                            action="http://api.anjian.hanyuhuake.com/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"

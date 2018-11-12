@@ -99,7 +99,7 @@
 				<el-form-item label="课程缩略图">
 					<el-upload
 							class="upload-demo"
-							action="http://39.105.27.225/upload"
+							action="http://api.anjian.hanyuhuake.com/upload"
 							list-type="picture"
 							:on-preview="handlePreview"
 							:on-remove="handleRemove"
@@ -115,7 +115,7 @@
 				<el-form-item label="课程视频">
 					<el-upload
 							class="upload-demo"
-							action="http://39.105.27.225/upload"
+							action="http://api.anjian.hanyuhuake.com/upload"
 							:on-preview="handlePreview"
 							:on-remove="handleRemove"
 							:before-remove="beforeRemove"
@@ -212,7 +212,7 @@
 				<el-form-item label="课程缩略图">
 					<el-upload
 							class="upload-demo"
-							action="http://39.105.27.225/upload"
+							action="http://api.anjian.hanyuhuake.com/upload"
 							list-type="picture"
 							:on-preview="handlePreview"
 							:on-remove="handleRemove"
@@ -228,7 +228,7 @@
 				<el-form-item label="课程视频">
 					<el-upload
 							class="upload-demo"
-							action="http://39.105.27.225/upload"
+							action="http://api.anjian.hanyuhuake.com/upload"
 							:on-preview="handlePreview"
 							:on-remove="handleRemove"
 							:before-remove="beforeRemove"
